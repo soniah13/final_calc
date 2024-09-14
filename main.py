@@ -37,12 +37,12 @@ def gcd(a, b):
     return gc
 
 
-operations = {'ADD': add, 'PLUS': add, 'ADDITION': add, 'SUM': add,
-              'SUBTRACT': sub, 'MINUS': sub, 'DIFFERENCE': sub, 'SUBTRACTION': sub,
-              'MULTIPLY': mul, 'TIMES': mul, 'MULTIPLICATION': mul, 'PRODUCT': mul,
-              'DIVIDE': div, 'DIVISION': div,
+operations = {'+': add, 'ADD': add, 'PLUS': add, 'ADDITION': add, 'SUM': add,
+              '-': sub, 'SUBTRACT': sub, 'MINUS': sub, 'DIFFERENCE': sub, 'SUBTRACTION': sub,
+              '*': mul, 'MULTIPLY': mul, 'TIMES': mul, 'MULTIPLICATION': mul, 'PRODUCT': mul,
+              '/': div, 'DIVIDE': div, 'DIVISION': div,
               'LCM': lcm, 'LOWEST_COMMON_MULTIPLE': lcm, 'GCD': gcd, 'GREATEST_COMMON_DIVIDER': gcd, 'HCF': gcd,
-              'MOD': rem, 'REMAINDER': rem, 'MODULUS': rem}
+              '%': rem, 'MOD': rem, 'REMAINDER': rem, 'MODULUS': rem}
 
 
 def find_numbers(t):
@@ -252,9 +252,14 @@ class Calculator:
                     for word in text_list:
                         if word.upper() in operations.keys():
                             num_l = find_numbers(text_list)
-                            result = operations[word.upper()](num_l[0], num_l[1])
-                            self.entry_field.delete(0, -1)
-                            self.entry_field.insert(-1, result)
+                            print(num_l)
+                            if len(num_l) >= 2:
+                                try:
+                                    result = operations[word.upper()](num_l[0], num_l[1])
+                                    self.entry_field.delete(0, -1)
+                                    self.entry_field.insert(-1, result)
+                                except:
+                                    self.total.set('ERROR!')
                         else:
                             pass
             except Exception as e:
